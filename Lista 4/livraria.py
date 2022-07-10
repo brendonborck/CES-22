@@ -8,6 +8,7 @@ class Livaria(ABC):
         self._compras = compras
 
     def inserir(self, type, value):
+        print("Inserindo", type)
         if type == "livro":
             self._produtos.append(value)
         elif type == "cliente":
@@ -18,9 +19,8 @@ class Livaria(ABC):
             print("Inválido.")
 
     def remover(self, type, value):
-        if not self.consultar(self, type, value):
-            print("Impossível alterar elemento inexistente.")
-        elif type == "livro":
+        print("Removendo", type)
+        if type == "livro":
             self._produtos.remove(value)
         elif type == "cliente":
             self._clientes.remove(value)
@@ -30,6 +30,7 @@ class Livaria(ABC):
             print("Inválido.")
 
     def consultar(self, type, value, autor = None):
+        print("Consultando", type)
         if type == "livro":
             if value == None:
                 lista = []
@@ -70,6 +71,7 @@ class Livaria(ABC):
             return False
     
     def alterar(self, type, previous, after):
+        print("Alterando", type)
         if not self.consultar(self, type, previous):
             print("Impossível alterar elemento inexistente.")
         elif type == "livro" or type == "cliente" or type == "compra":
@@ -111,6 +113,9 @@ class Livro(Produto):
     def is_book(self):
         return True
 
+    def valor(self):
+        return self._venda
+
 
 class Autor(ABC):
     def __init__(self, nome, email, titulos = []):
@@ -143,7 +148,26 @@ class Compra(ABC):
 
 def main():
 
+    print("Começo da livraria\n")
 
+    exemplo_cliente = Cliente("Fulano", "fulano@gmail.com", "O LIVRO")
+    exemplo_autor = Autor("Brendon", "brendonborck@gmail.com", "O LIVRO")
+    exemplo_livro = Livro("O LIVRO", exemplo_autor, "Drama", "2", "EDITORA", 23.00, 12.00, 2.00)
+    compras = []
+    quantidade = []
+    valores = []
+    compras.append(exemplo_livro)
+    quantidade.append(2)
+    valores.append(exemplo_livro.valor())
+    exemplo_compra = Compra(compras, quantidade, valores)
+
+    livraria = Livaria()
+
+    livraria.inserir("livro", exemplo_livro)
+    livraria.inserir("cliente", exemplo_cliente)
+    livraria.inserir("compra", exemplo_compra)
+    livraria.remover("compra", exemplo_compra)
+    livraria.consultar("livro", None, exemplo_autor)
 
 if __name__ == "__main__":
     main()

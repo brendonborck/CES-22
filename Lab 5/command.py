@@ -51,23 +51,4 @@ class RealizarTransferencia(Command):
 class Receiver(ABC):
 
     def operations(self, a):
-        a = a + 1
-
-# Application --------------------------------------------------------------------------------------------------------------
-
-def main():
-
-    print("Rascunho publicado por admin:")
-    Document(Draft(), User(True))
-
-    print("\nRascunho publicado por usuário e aprovado por admin:")
-    Document(Draft(), User(), True, True, True)
-
-    print("\nRascunho publicado por usuário e não aprovado por admin:")
-    Document(Draft(), User(), True, True, False)
-
-    print("\nPublicação expirada:")
-    Document(Published(), User(), False)
-
-if __name__ == "__main__":
-    main()
+        pass
